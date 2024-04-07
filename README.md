@@ -9,3 +9,8 @@ Team-B Members:
 4. Raksha Khadka (Developer)
 
 We will be using php for hms creation.
+
+This system consists of three users:
+1. admin
+2. staff
+3. student
