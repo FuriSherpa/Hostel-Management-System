@@ -8,7 +8,7 @@ Team-B Members:
 3. Furi Sherpa (Developer)
 4. Raksha Khadka (Developer)
 
-We will be using php for hms creation.
+We will be using php and mysql for hms creation.
 
 This system consists of three users:
 1. admin
