@@ -68,64 +68,64 @@
     </div>
 
     <section id="features" class="mt-5">
-    <div class="container">
-        <h2 class="text-center">Features <br><br></h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="feature-item text-center">
-                    <img src="path_to_your_image/image1.jpg" class="img-fluid" alt="Feature 1">
-                    <h3>24/7 Security</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis justo et dolor tempus vehicula.</p>
+        <div class="container">
+            <h2 class="text-center">Features <br><br></h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature-item text-center">
+                        <img src="path_to_your_image/image1.jpg" class="img-fluid" alt="Feature 1">
+                        <h3>24/7 Security</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis justo et dolor tempus vehicula.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-item text-center">
-                    <img src="path_to_your_image/image2.jpg" class="img-fluid" alt="Feature 2">
-                    <h3>High-Speed Internet</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis justo et dolor tempus vehicula.</p>
+                <div class="col-md-4">
+                    <div class="feature-item text-center">
+                        <img src="path_to_your_image/image2.jpg" class="img-fluid" alt="Feature 2">
+                        <h3>High-Speed Internet</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis justo et dolor tempus vehicula.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-item text-center">
-                    <img src="path_to_your_image/image3.jpg" class="img-fluid" alt="Feature 3">
-                    <h3>Friendly Environment</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis justo et dolor tempus vehicula.</p>
+                <div class="col-md-4">
+                    <div class="feature-item text-center">
+                        <img src="path_to_your_image/image3.jpg" class="img-fluid" alt="Feature 3">
+                        <h3>Friendly Environment</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis justo et dolor tempus vehicula.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section id="about" class="mt-5">
-    <div class="container">
-        <h2 class="text-center">About Us <br><br></h2>
-        <div class="row">
-            <div class="col-md-6">
-                <img src="path_to_your_image/about_image.jpg" class="img-fluid" alt="About Us Image">
-            </div>
-            <div class="col-md-6">
-                <h3>Our Story</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis justo et dolor tempus vehicula. Integer auctor, lorem in vehicula commodo, libero justo tincidunt justo, a consequat enim urna eget nulla. Donec ullamcorper, nulla eget suscipit tempus, urna ex suscipit purus, eu dapibus nisi elit et odio.</p>
-                <h3>Our Mission</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis justo et dolor tempus vehicula. Integer auctor, lorem in vehicula commodo, libero justo tincidunt justo, a consequat enim urna eget nulla. Donec ullamcorper, nulla eget suscipit tempus, urna ex suscipit purus, eu dapibus nisi elit et odio.</p>
-                <h3>Our Values</h3>
-                <ul>
-                    <li>Lorem ipsum dolor sit amet</li>
-                    <li>Consectetur adipiscing elit</li>
-                    <li>Sed quis justo et dolor tempus vehicula</li>
-                    <li>Integer auctor, lorem in vehicula commodo</li>
-                </ul>
+    <section id="about" class="mt-5">
+        <div class="container">
+            <h2 class="text-center">About Us <br><br></h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="path_to_your_image/about_image.jpg" class="img-fluid" alt="About Us Image">
+                </div>
+                <div class="col-md-6">
+                    <h3>Our Story</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis justo et dolor tempus vehicula. Integer auctor, lorem in vehicula commodo, libero justo tincidunt justo, a consequat enim urna eget nulla. Donec ullamcorper, nulla eget suscipit tempus, urna ex suscipit purus, eu dapibus nisi elit et odio.</p>
+                    <h3>Our Mission</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis justo et dolor tempus vehicula. Integer auctor, lorem in vehicula commodo, libero justo tincidunt justo, a consequat enim urna eget nulla. Donec ullamcorper, nulla eget suscipit tempus, urna ex suscipit purus, eu dapibus nisi elit et odio.</p>
+                    <h3>Our Values</h3>
+                    <ul>
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Consectetur adipiscing elit</li>
+                        <li>Sed quis justo et dolor tempus vehicula</li>
+                        <li>Integer auctor, lorem in vehicula commodo</li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<footer class="footer mt-auto py-3 bg-dark text-white">
-    <div class="container text-center">
-        <span>&copy; 2024 StayEase. All rights reserved.</span>
-        <span class="ml-2">Designed by Team-B</span>
-    </div>
-</footer>
+    <footer class="footer mt-auto py-3 bg-dark text-white">
+        <div class="container text-center">
+            <span>&copy; 2024 StayEase. All rights reserved.</span>
+            <span class="ml-2">Designed by Team-B</span>
+        </div>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
