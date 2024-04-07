@@ -7,3 +7,5 @@ Team-B Members:
 2. Pujan Pant (BA)
 3. Furi Sherpa (Developer)
 4. Raksha Khadka (Developer)
+
+We will be using php for hms creation.
