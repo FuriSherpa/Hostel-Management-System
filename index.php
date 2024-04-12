@@ -1,135 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+include("mainInclude/header.php");
+?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StayEase</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
-
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">StayEase</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#features">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#about">About Us</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Login
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="student/index.php">Student Login</a>
-                        <a class="dropdown-item" href="#">Staff Login</a>
-                        <a class="dropdown-item" href="admin/index.php">Admin Login</a>
+<header class="bg-dark py-5">
+    <div class="container px-5">
+        <div class="row gx-5 align-items-center justify-content-center">
+            <div class="col-lg-8 col-xl-7 col-xxl-6">
+                <div class="my-5 text-center text-xl-start">
+                    <h1 class="display-5 fw-bolder text-white mb-2">Welcome to HostelStays</h1>
+                    <p class="lead fw-normal text-white-50 mb-4">Relax, Explore & Connect</p>
+                    <p class="lead fw-normal text-white-50 mb-4">With HostelStays, you can effortlessly manage reservations, track guest check-ins and check-outs, handle billing and payments, and much more – all from one intuitive platform. Our user-friendly interface and powerful features make it easy for you to focus on providing exceptional hospitality while we take care of the rest.</p>
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                        <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#facilities">Get Started</a>
+                        <a class="btn btn-outline-light btn-lg px-4" href="about.php">Learn More</a>
                     </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="assets/images/1.jpg" alt="First slide">
+                </div>
             </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="assets/images/2.jpg" alt="Second slide">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="assets/images/3.jpg" alt="Third slide">
+            <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+                <!-- Video -->
+                <video controls autoplay loop muted class="img-fluid rounded-3 my-5">
+                    <source src="video/learning.mp4" type="video/mp4">
+                </video>
             </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
+</header>
 
-    <section id="features" class="mt-5">
-        <div class="container">
-            <h2 class="text-center">Features <br><br></h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="feature-item text-center">
-                        <img src="path_to_your_image/image1.jpg" class="img-fluid" alt="Feature 1">
-                        <h3>24/7 Security</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis justo et dolor tempus vehicula.</p>
+
+<!-- Facilities section-->
+<section class="py-5" id="facilities">
+    <div class="container px-5 my-5">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-10">
+                <h2 class="fw-bolder mb-5 text-center">Our Facilities</h2>
+                <div class="row gx-5 row-cols-1 row-cols-md-2">
+                    <div class="col mb-5 h-100">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 d-flex align-items-center justify-content-center mb-3"><i class="bi bi-shield-fill-check"></i></div>
+                        <h2 class="h5 text-center">24/7 Security</h2>
+                        <p class="mb-0 text-center">Ensure the safety and security of guests and their belongings through measures such as surveillance cameras, secure lockers, and security guards.</p>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="feature-item text-center">
-                        <img src="path_to_your_image/image2.jpg" class="img-fluid" alt="Feature 2">
-                        <h3>High-Speed Internet</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis justo et dolor tempus vehicula.</p>
+                    <div class="col mb-5 mb-md-0 h-100">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 d-flex align-items-center justify-content-center mb-3"><i class="bi bi-building"></i></div>
+                        <h2 class="h5 text-center">Friendly Environment</h2>
+                        <p class="mb-0 text-center">Offer more than just a place to rest. Here, you can find a home away from home, where memories are made and friendships flourish.</p>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="feature-item text-center">
-                        <img src="path_to_your_image/image3.jpg" class="img-fluid" alt="Feature 3">
-                        <h3>Friendly Environment</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis justo et dolor tempus vehicula.</p>
+                    <div class="col mb-5 mb-md-0 h-100">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 d-flex align-items-center justify-content-center mb-3"><i class="bi bi-wifi"></i></div>
+                        <h2 class="h5 text-center">High-Speed Internet</h2>
+                        <p class="mb-0 text-center">Provide complimentary Wi-Fi access throughout the hostel premises, allowing guests to stay connected and access information online.</p>
+                    </div>
+                    <div class="col h-100">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 d-flex align-items-center justify-content-center mb-3"><i class="bi bi-bag-fill"></i></div>
+                        <h2 class="h5 text-center">Laundry</h2>
+                        <p class="mb-0 text-center">Provide self-service or on-site laundry facilities where guests can wash and dry their clothes during their stay.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="about" class="mt-5">
-        <div class="container">
-            <h2 class="text-center">About Us <br><br></h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <img src="path_to_your_image/about_image.jpg" class="img-fluid" alt="About Us Image">
-                </div>
-                <div class="col-md-6">
-                    <h3>Our Story</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis justo et dolor tempus vehicula. Integer auctor, lorem in vehicula commodo, libero justo tincidunt justo, a consequat enim urna eget nulla. Donec ullamcorper, nulla eget suscipit tempus, urna ex suscipit purus, eu dapibus nisi elit et odio.</p>
-                    <h3>Our Mission</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis justo et dolor tempus vehicula. Integer auctor, lorem in vehicula commodo, libero justo tincidunt justo, a consequat enim urna eget nulla. Donec ullamcorper, nulla eget suscipit tempus, urna ex suscipit purus, eu dapibus nisi elit et odio.</p>
-                    <h3>Our Values</h3>
-                    <ul>
-                        <li>Lorem ipsum dolor sit amet</li>
-                        <li>Consectetur adipiscing elit</li>
-                        <li>Sed quis justo et dolor tempus vehicula</li>
-                        <li>Integer auctor, lorem in vehicula commodo</li>
-                    </ul>
+
+<!-- Testimonial section-->
+<div class="py-5 bg-light">
+    <div class="container px-5 my-5">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-10 col-xl-7">
+                <div class="text-center">
+                    <div class="fs-4 mb-4 fst-italic">"Welcome to our cozy hostel, where every traveler is a friend waiting to be made. From our comfortable accommodations to our inviting common areas, we strive to create a warm and inclusive environment where you can relax, connect, and create unforgettable memories. Come join us and experience the magic of hostel life firsthand!"</div>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
+                        <div class="fw-bold">
+                            Basudeo N. Shrestha
+                            <span class="fw-bold text-primary mx-1">/</span>
+                            CEO, HostelStays
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 
-    <footer class="footer mt-auto py-3 bg-dark text-white">
-        <div class="container text-center">
-            <span>&copy; 2024 StayEase. All rights reserved.</span>
-            <span class="ml-2">Designed by Team-B</span>
+<section class="py-5">
+    <div class="container px-5 my-5">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-8 col-xl-6">
+                <div class="text-center">
+                    <h2 class="fw-bolder">User Feedback</h2>
+                    <p class="lead fw-normal text-muted mb-5">Read what our users are saying about us</p>
+                </div>
+            </div>
         </div>
-    </footer>
+        <div class="row gx-5">
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <div class="fw-bold">Ankit Bogati</div>
+                            <div class="text-muted">Rated: <span class="text-warning">★★★★★</span></div>
+                        </div>
+                        <p class="card-text mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                        <div class="text-muted">March 12, 2023</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <div class="fw-bold">Pujan Pant</div>
+                            <div class="text-muted">Rated: <span class="text-warning">★★★☆☆</span></div>
+                        </div>
+                        <p class="card-text mb-4">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                        <div class="text-muted">April 3, 2023</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <div class="fw-bold">Raksha Khadka</div>
+                            <div class="text-muted">Rated: <span class="text-warning">★★★★☆</span></div>
+                        </div>
+                        <p class="card-text mb-4">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.</p>
+                        <div class="text-muted">April 15, 2023</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
 
-</html>
+<?php
+include("mainInclude/footer.php");
+?>
