@@ -53,7 +53,7 @@ include("mainInclude/header.php");
         <div class="row gx-5 row-cols-1 row-cols-sm-2 row-cols-xl-4 justify-content-center">
             <div class="col mb-5 mb-5 mb-xl-0">
                 <div class="text-center">
-                    <img class="img-fluid rounded-circle mb-4 px-4" src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
+                    <img class="img-fluid rounded-circle mb-4 px-4" src="images/team/ankit.jpg" alt="..." height="200px" width="200px"/>
                     <h5 class="fw-bolder">Ankit Bogati</h5>
                     <div class="fst-italic text-muted">Project Manager</div>
                 </div>
