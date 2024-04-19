@@ -1,5 +1,19 @@
 <?php
-include("include/header.php");
+// Start session if not already started
+if (!isset($_SESSION)) {
+    session_start();
+}
+
+include('include/header.php');
+
+// Include database connection
+include("../mainInclude/dbConn.php");
+
+if (isset($_SESSION["is_login"])) {
+    $rLogEmail = $_SESSION['rLogEmail'];
+} else {
+    echo  "<script> location.href='../index.php'; </script>";
+}
 ?>
 
 <div class="container-fluid">
