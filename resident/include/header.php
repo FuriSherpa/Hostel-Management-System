@@ -1,3 +1,26 @@
+<?php
+// Include database connection
+include("../mainInclude/dbConn.php");
+
+// Start session if not already started
+if (!isset($_SESSION)) {
+    session_start();
+}
+
+if (isset($_SESSION["is_login"])) {
+    $rLogEmail = $_SESSION['rLogEmail'];
+} else {
+    echo  "<script> location.href='../index.php'; </script>";
+}
+
+if (isset($rLogEmail)) {
+    $sql = "SELECT r_img FROM resident WHERE r_email  = '$rLogEmail'";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+    $r_img = $row["r_img"];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,7 +60,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon">
-                    <img src="../images/hostelstays.png" alt="" width="32" height= "32"/>
+                    <img src="../images/hostelstays.png" alt="" width="32" height="32" />
                 </div>
                 <div class="sidebar-brand-text mx-3">HostelStays</div>
             </a>
@@ -62,14 +85,14 @@
 
             <!-- Nav Item - Rooms -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="bookRooms.php">
                     <i class="bi bi-house-fill"></i>
                     <span>Book Rooms</span></a>
             </li>
 
             <!-- Nav Item - Room Details -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="viewRooms.php">
                     <i class="bi bi-eye-fill"></i>
                     <span>View Room Details</span></a>
             </li>
@@ -101,26 +124,6 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
 
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
@@ -241,11 +244,11 @@
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="profile.php">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="changePassword.php">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Change Password
                                 </a>
@@ -254,7 +257,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="../logout.php" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
