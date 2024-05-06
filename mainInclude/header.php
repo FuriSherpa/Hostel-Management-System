@@ -38,9 +38,9 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle  text-white" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Login</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#a_login" href="../admin/admin_login.php">Admin</a></li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#s_login" href="../staff/staff_login.php">Staff</a></li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#r_login" href="../resident/resident_login.php">Resident</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#a_login">Admin</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#s_login">Staff</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#r_login">Resident</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -153,7 +153,7 @@
 
             function clearStaffLoginForm() {
                 document.getElementById("sloginform").reset();
-                $("#statusSLogMsg").html(" "); 
+                $("#statusSLogMsg").html(" ");
             }
 
             function clearResidentLoginForm() {

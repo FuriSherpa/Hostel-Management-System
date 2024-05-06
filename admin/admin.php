@@ -22,4 +22,4 @@ if (!isset($_SESSION["is_admin_login"])) {
             echo json_encode($row); // Return 0 if login fails
         }
     }
-}
+} 
