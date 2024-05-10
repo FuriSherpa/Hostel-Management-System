@@ -43,11 +43,11 @@ if(isset($_REQUEST['submitBtn'])){
                 <input type="text" class="form-control" name="employeeName" id="employeeName" required>
             </div>
             <div class="form-group">
-                <label for="employeeName">Employee Name</label>
+                <label for="employeeName">Employee Email</label>
                 <input type="text" class="form-control" name="employeeName" id="employeeName" required>
             </div>
             <div class="form-group">
-                <label for="employeeName">Employee Name</label>
+                <label for="employeeName">Employee Phone</label>
                 <input type="text" class="form-control" name="employeeName" id="employeeName" required>
             </div>
             <div class="form-group">
