@@ -97,6 +97,14 @@ if (isset($sEmail)) {
                     <span>View Room Details</span></a>
             </li>
 
+             <!-- Nav Item - Room Details -->
+             <li class="nav-item">
+                <a class="nav-link" href="attendance.php">
+                    <i class="bi bi-eye-fill"></i>
+                    <span>Attendance</span></a>
+            </li>
+
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
