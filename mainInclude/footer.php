@@ -19,3 +19,6 @@
 
 <!-- Admin ajax call javascript -->
 <script type="text/javascript" src="js/adminajaxrequest.js"></script>
+
+<!-- Staff ajax call javascript -->
+<script type="text/javascript" src="js/staffajaxrequest.js"></script>
