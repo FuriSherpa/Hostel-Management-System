@@ -19,7 +19,7 @@ $(document).ready(function () {
                     $("#signupBtn").prop("disabled", false);
                 }
             },
-        }); 
+        });
     });
 });
 
@@ -70,6 +70,8 @@ function signupBtn() {
                     emptyFields();
                     setTimeout(function () {
                         $('#successMsg').html("");
+                        $('#signupModal').modal('hide'); // Hide the signup modal
+                        $('#r_login').modal('show'); // Show the login modal after 2 seconds
                     }, 2000);
                 } else if (data === "Failed") {
                     $('#successMsg').html("<span class='alert alert-danger'>Registration Failed!</span>");
@@ -82,6 +84,7 @@ function signupBtn() {
     }
 }
 
+
 // Empty all fields
 function emptyFields() {
     $("#signup").trigger("reset");
@@ -91,24 +94,24 @@ function emptyFields() {
 }
 
 // Ajax call for resident login verification
-function checkResidentLogin(){
+function checkResidentLogin() {
     var rLogEmail = $("#r_logemail").val(); // Get the value of the input field
     var rLogPass = $("#r_logpass").val();  // Get the value of the input field
     $.ajax({
         url: 'resident/addResident.php',
         method: 'POST',
-        data:{
+        data: {
             checkLogEmail: "checkLogEmail",
             rLogEmail: rLogEmail,
             rLogPass: rLogPass,
         },
-        success: function(data){
+        success: function (data) {
             data = parseInt(data); // Parse the response as an integer
-            if (data === 0){
+            if (data === 0) {
                 $("#statusRLogMsg").html('<small class="alert alert-danger">Invalid email or password.</small>');
-            } else if (data === 1){
+            } else if (data === 1) {
                 $("#statusRLogMsg").html('<div class="spinner-border text-success" role="status"></div>');
-                setTimeout(()=>{
+                setTimeout(() => {
                     window.location.href = "resident/index.php";
                 }, 1000);
             }
