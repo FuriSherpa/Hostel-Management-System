@@ -1,10 +1,12 @@
 <?php
-if(!isset( $_SESSION)) { session_start(); }
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 include("include/header.php");
 include("../mainInclude/dbConn.php");
 
-if(!isset( $_SESSION['is_admin_login'] )) {
+if (!isset($_SESSION['is_admin_login'])) {
     echo "<script> location.href='../index.php'; </script>";
 }
 
@@ -12,16 +14,17 @@ if(!isset( $_SESSION['is_admin_login'] )) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Process the form data and insert into the database
     $roomNumber = $_POST['roomNumber'];
+    $capacity = $_POST['capacity'];
     $roomType = $_POST['roomType'];
     $roomFees = $_POST['roomFees'];
     $status = $_POST['status'];
 
     // Perform database insertion
-    $query = "INSERT INTO rooms (roomNumber, roomType, roomFees, roomStatus) VALUES ('$roomNumber', '$roomType', '$roomFees', '$status')";
+    $query = "INSERT INTO rooms (roomNumber, capacity, roomType, roomFees, roomStatus) VALUES ('$roomNumber', '$capacity', '$roomType', '$roomFees', '$status')";
     $result = mysqli_query($conn, $query);
 
     // Check if insertion was successful
-    if($result) {
+    if ($result) {
         // Display success message
         echo "<script>alert('Room added successfully!');</script>";
         // Redirect to the page displaying rooms list
@@ -49,14 +52,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="text" name="roomNumber" id="roomNumber" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="roomType">Seater:</label>
-                    <input type="text" name="roomType" id="roomType" class="form-control" required>
+                    <label for="capacity">Capacity:</label>
+                    <input type="number" name="capacity" id="capacity" class="form-control" required>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
+                    <label for="roomType">Room Type:</label>
+                    <input type="text" name="roomType" id="roomType" class="form-control" required>
+                </div>
+                <div class="form-group">
                     <label for="roomFees">Fees Per Month:</label>
-                    <input type="text" name="roomFees" id="roomFees" class="form-control" required>
+                    <input type="number" name="roomFees" id="roomFees" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="status">Status:</label>
