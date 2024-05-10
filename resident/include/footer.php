@@ -61,11 +61,8 @@
 <!-- custom js -->
 <script type="text/javascript" src="../js/script.js"></script>
 
-<!-- Signup ajax call javascript -->
-<script type="text/javascript" src="js/ajaxrequest.js"></script>
-
-<!-- Admin ajax call javascript -->
-<script type="text/javascript" src="js/adminajaxrequest.js"></script>
+<!-- Resident ajax call javascript -->
+<script type="text/javascript" src="../js/residentajaxrequest.js"></script>
 
 </body>
 
