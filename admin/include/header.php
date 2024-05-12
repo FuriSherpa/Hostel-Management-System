@@ -38,9 +38,9 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php" <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'style="color: #fff;"' : ''; ?>>
                 <div class="sidebar-brand-icon">
-                    <img src="../images/hostelstays.png" alt="" width="32" height= "32"/>
+                    <img src="../images/hostelstays.png" alt="" width="32" height="32" />
                 </div>
                 <div class="sidebar-brand-text mx-3">HostelStays</div>
             </a>
@@ -49,7 +49,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
                 <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -64,7 +64,7 @@
             </div>
 
             <!-- Nav Item - Residents Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'viewResident.php' || basename($_SERVER['PHP_SELF']) == 'registerResident.php' ? 'active' : ''; ?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseResidents" aria-expanded="true" aria-controls="collapseResidents">
                     <i class="bi bi-people-fill"></i>
                     <span>Residents</span>
@@ -78,38 +78,23 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Employees Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmployees" aria-expanded="true" aria-controls="collapseEmployees">
+            <!-- Nav Item - staffs Collapse Menu -->
+            <li class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'registerstaff.php' || basename($_SERVER['PHP_SELF']) == 'viewstaff.php' ? 'active' : ''; ?>">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsestaffs" aria-expanded="true" aria-controls="collapsestaffs">
                     <i class="bi bi-person-circle"></i>
-                    <span>Employees</span>
+                    <span>Staffs</span>
                 </a>
-                <div id="collapseEmployees" class="collapse" aria-labelledby="headingEmployees" data-parent="#accordionSidebar">
+                <div id="collapsestaffs" class="collapse" aria-labelledby="headingstaffs" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Employees Management:</h6>
-                        <a class="collapse-item" href="registerEmployee.php">Register Employee</a>
-                        <a class="collapse-item" href="viewEmployee.php">View Employees</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Attendance Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAttendance" aria-expanded="true" aria-controls="collapseAttendance">
-                    <i class="bi bi-card-checklist"></i>
-                    <span>Attendance</span>
-                </a>
-                <div id="collapseAttendance" class="collapse" aria-labelledby="headingAttendance" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Attendance Management:</h6>
-                        <a class="collapse-item" href="viewAttendance.php">View Attendance</a>
-                        <a class="collapse-item" href="manageAttendance.php">Manage Attendance</a>
+                        <h6 class="collapse-header">Staff Management:</h6>
+                        <a class="collapse-item" href="viewstaff.php">View staffs</a>
+                        <a class="collapse-item" href="registerstaff.php">Register staff</a>
                     </div>
                 </div>
             </li>
 
             <!-- Nav Item - Rooms Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'viewRoom.php' || basename($_SERVER['PHP_SELF']) == 'addRoom.php' || basename($_SERVER['PHP_SELF']) == 'assignRoom.php' ? 'active' : ''; ?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRooms" aria-expanded="true" aria-controls="collapseRooms">
                     <i class="bi bi-house-fill"></i>
                     <span>Rooms</span>
@@ -125,7 +110,7 @@
             </li>
 
             <!-- Nav Item - Bookings Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'bookings.php' ? 'active' : ''; ?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBookings" aria-expanded="true" aria-controls="collapseBookings">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Bookings</span>
@@ -139,7 +124,7 @@
             </li>
 
             <!-- Nav Item - Notice Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'viewNotice.php' || basename($_SERVER['PHP_SELF']) == 'addNotice.php' ? 'active' : ''; ?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNotice" aria-expanded="true" aria-controls="collapseNotice">
                     <i class="bi bi-clipboard2-fill"></i>
                     <span>Notice</span>
@@ -151,6 +136,13 @@
                         <a class="collapse-item" href="addNotice.php">Add Notice</a>
                     </div>
                 </div>
+            </li>
+
+            <!-- Nav Item - Reports -->
+            <li class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'reports.php' ? 'active' : ''; ?>">
+                <a class="nav-link" href="reports.php">
+                    <i class="bi bi-journals"></i>
+                    <span>Reports</span></a>
             </li>
 
             <!-- Divider -->
@@ -193,7 +185,7 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
-                                <a class="dropdown-item" href="changePassword.php" >
+                                <a class="dropdown-item" href="changePassword.php">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Change Password
                                 </a>
