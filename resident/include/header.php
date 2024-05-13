@@ -69,7 +69,7 @@ if (isset($rLogEmail)) {
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item <?php echo (basename($_SERVER['PHP_SELF']) == 'index.php') ? 'active' : ''; ?>">
                 <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -84,21 +84,21 @@ if (isset($rLogEmail)) {
             </div>
 
             <!-- Nav Item - Room Details -->
-            <li class="nav-item">
+            <li class="nav-item <?php echo (basename($_SERVER['PHP_SELF']) == 'viewRooms.php') ? 'active' : ''; ?>">
                 <a class="nav-link" href="viewRooms.php">
                     <i class="bi bi-eye-fill"></i>
                     <span>View Room Details</span></a>
             </li>
 
             <!-- Nav Item - Rooms -->
-            <li class="nav-item">
+            <li class="nav-item <?php echo (basename($_SERVER['PHP_SELF']) == 'bookRooms.php') ? 'active' : ''; ?>">
                 <a class="nav-link" href="bookRooms.php">
                     <i class="bi bi-house-fill"></i>
                     <span>Book Rooms</span></a>
             </li>
 
             <!-- Nav Item - Room Details -->
-            <li class="nav-item">
+            <li class="nav-item <?php echo (basename($_SERVER['PHP_SELF']) == 'bookingStatus.php') ? 'active' : ''; ?>">
                 <a class="nav-link" href="bookingStatus.php">
                     <i class="bi bi-bookmark-check-fill"></i>
                     <span>Booking Status</span></a>

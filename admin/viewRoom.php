@@ -55,16 +55,18 @@ $result = mysqli_query($conn, $query);
         <form class="form-inline">
             <label for="filter">Filter by:</label>
             <select class="form-control mx-2" id="filter" name="filter">
-                <option value="roomStatus">Occupancy Status</option>
-                <option value="capacity">Capacity</option>
-                <option value="roomNumber">Room Number</option>
+                <option value="roomStatus" <?php echo ($_GET['filter'] ?? 'roomStatus') == 'roomStatus' ? 'selected' : ''; ?>>Occupancy Status</option>
             </select>
             <select class="form-control mx-2" id="value" name="value">
-                <option value="Available">Available</option>
-                <option value="Partially Occupied">Partially Occupied</option>
-                <option value="Occupied">Occupied</option>
+                <option value="" <?php echo ($_GET['value'] ?? '') == '' ? 'selected' : ''; ?>>Select Value</option>
+                <option value="Available" <?php echo ($_GET['value'] ?? '') == 'Available' ? 'selected' : ''; ?>>Available</option>
+                <option value="Partially Occupied" <?php echo ($_GET['value'] ?? '') == 'Partially Occupied' ? 'selected' : ''; ?>>Partially Occupied</option>
+                <option value="Occupied" <?php echo ($_GET['value'] ?? '') == 'Occupied' ? 'selected' : ''; ?>>Occupied</option>
             </select>
             <button type="submit" class="btn btn-primary">Apply Filter</button>
+            <?php if (isset($_GET['filter']) && isset($_GET['value'])) : ?>
+                <a href="viewRoom.php" class="btn btn-secondary ml-2">Clear Filter</a>
+            <?php endif; ?>
         </form>
         <div class="mt-2">
             <a href="?sort=roomNumber" class="btn btn-info">Sort by Room Number</a>
@@ -72,6 +74,7 @@ $result = mysqli_query($conn, $query);
             <a href="?sort=roomStatus" class="btn btn-info">Sort by Occupancy Status</a>
         </div>
     </div>
+
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4 mt-4">

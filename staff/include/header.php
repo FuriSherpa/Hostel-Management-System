@@ -69,7 +69,7 @@ if (isset($sEmail)) {
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
                 <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -84,26 +84,25 @@ if (isset($sEmail)) {
             </div>
 
             <!-- Nav Item - Rooms -->
-            <li class="nav-item">
-                <a class="nav-link" href="bookRooms.php">
+            <li class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'bookRooms.php' ? 'active' : ''; ?>">
+                <a class="nav-link" href="viewResidents.php">
                     <i class="bi bi-house-fill"></i>
-                    <span>Book Rooms</span></a>
+                    <span>View Residents</span></a>
             </li>
 
             <!-- Nav Item - Room Details -->
-            <li class="nav-item">
+            <li class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'viewRooms.php' ? 'active' : ''; ?>">
                 <a class="nav-link" href="viewRooms.php">
                     <i class="bi bi-eye-fill"></i>
-                    <span>View Room Details</span></a>
+                    <span>View Rooms</span></a>
             </li>
 
-             <!-- Nav Item - Room Details -->
-             <li class="nav-item">
+            <!-- Nav Item - Attendance -->
+            <li class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'attendance.php' ? 'active' : ''; ?>">
                 <a class="nav-link" href="attendance.php">
                     <i class="bi bi-eye-fill"></i>
                     <span>Attendance</span></a>
             </li>
-
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

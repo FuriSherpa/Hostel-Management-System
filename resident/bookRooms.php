@@ -10,6 +10,8 @@ include('include/header.php');
 include("../mainInclude/dbConn.php");
 
 $success_msg = '';
+$error_msg = '';
+$form_disabled = '';
 
 if (isset($_SESSION["is_login"])) {
     $rLogEmail = $_SESSION['rLogEmail'];
@@ -19,6 +21,15 @@ if (isset($_SESSION["is_login"])) {
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $resident_id = $row['r_id'];
+
+    // Check if the user has already made a booking
+    $checkBooking = "SELECT COUNT(*) AS count FROM booking_requests WHERE resident_id = $resident_id AND status NOT IN ('Cancelled', 'Rejected')";
+    $resultCheck = $conn->query($checkBooking);
+    $rowCheck = $resultCheck->fetch_assoc();
+    if ($rowCheck['count'] > 0) {
+        $error_msg = "You have already made a booking.";
+        $form_disabled = 'disabled';
+    }
 } else {
     echo  "<script> location.href='../index.php'; </script>";
 }
@@ -40,8 +51,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
     if (mysqli_query($conn, $sql)) {
         $success_msg = "Booking request submitted successfully";
+        $form_disabled = 'disabled';
+        echo "<script>
+                setTimeout(function() {
+                    document.getElementById('success_msg').style.display = 'none';
+                }, 2000);
+              </script>";
     } else {
-        echo "<script>alert('Error: " . mysqli_error($conn) . "');</script>";
+        $error_msg = "Error: " . mysqli_error($conn);
     }
 }
 
@@ -49,9 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Reserve Room</h1>
+    <h1 class="h3 mb-4 text-gray-800">Book Room</h1>
 
     <!-- Booking Form -->
     <div class="row">
@@ -61,37 +77,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                     <?php echo $success_msg; ?>
                 </div>
             <?php endif; ?>
-            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" id="bookingForm" onsubmit="return confirmBooking()">
-                <div class="form-group">
-                    <label for="room_id">Room Number</label>
-                    <select class="form-control" id="room_id" name="room_id" required onchange="getRoomType(this)">
-                        <option value="">Select Room Number</option>
-                        <?php
-                        $result_rooms = $conn->query($sql_rooms); // Resetting the result set
-                        while ($row_rooms = $result_rooms->fetch_assoc()) {
-                            echo "<option value='" . $row_rooms['roomID'] . "' data-roomtype='" . $row_rooms['roomType'] . "'>" . $row_rooms['roomNumber'] . "</option>";
-                        }
-                        ?>
-                    </select>
+            <?php if ($error_msg) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?php echo $error_msg; ?>
                 </div>
-                <div class="form-group">
-                    <label for="room_type">Room Type</label>
-                    <input type="text" class="form-control" id="room_type" name="room_type" readonly required>
-                </div>
-                <div class="form-group">
-                    <label for="check_in_date">Check-in Date</label>
-                    <input type="date" class="form-control" id="check_in_date" name="check_in_date" required>
-                </div>
-                <div class="form-group">
-                    <label for="check_out_date">Check-out Date</label>
-                    <input type="date" class="form-control" id="check_out_date" name="check_out_date" required>
-                </div>
-                <div class="form-group">
-                    <label for="special_requirements">Special Requirements</label>
-                    <textarea class="form-control" id="special_requirements" name="special_requirements" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary" name="submit">Submit Booking Request</button>
-            </form>
+            <?php else : ?>
+                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" id="bookingForm" onsubmit="return confirmBooking()">
+                    <div class="form-group">
+                        <label for="room_id">Room Number</label>
+                        <select class="form-control" id="room_id" name="room_id" required onchange="getRoomType(this)" <?php echo $form_disabled; ?>>
+                            <option value="">Select Room Number</option>
+                            <?php
+                            $result_rooms = $conn->query($sql_rooms); // Resetting the result set
+                            while ($row_rooms = $result_rooms->fetch_assoc()) {
+                                echo "<option value='" . $row_rooms['roomID'] . "' data-roomtype='" . $row_rooms['roomType'] . "'>" . $row_rooms['roomNumber'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="room_type">Room Type</label>
+                        <input type="text" class="form-control" id="room_type" name="room_type" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label for="check_in_date">Check-in Date</label>
+                        <input type="date" class="form-control" id="check_in_date" name="check_in_date" onchange="setCheckOutDate()" required <?php echo $form_disabled; ?>>
+                    </div>
+                    <div class="form-group">
+                        <label for="check_out_date">Check-out Date</label>
+                        <select class="form-control" id="check_out_date" name="check_out_date" required <?php echo $form_disabled; ?>>
+                            <option value="">Select Check-out Date</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="special_requirements">Special Requirements</label>
+                        <textarea class="form-control" id="special_requirements" name="special_requirements" rows="3" <?php echo $form_disabled; ?>></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" name="submit" id="submitBtn" <?php echo $form_disabled; ?>>Submit Booking Request</button>
+                </form>
+            <?php endif; ?>
         </div>
     </div>
 </div>
@@ -105,6 +129,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         room_type.value = roomType;
     }
 
+    // Function to set check-out date based on check-in date
+    function setCheckOutDate() {
+        var check_in_date = new Date(document.getElementById('check_in_date').value);
+        var check_out_date = document.getElementById('check_out_date');
+        check_out_date.innerHTML = ""; // Clear options
+        check_out_date.disabled = false;
+
+        // Create options for check-out date
+        var i;
+        for (i = 1; i <= 12; i++) {
+            var newDate = new Date(check_in_date.getTime());
+            newDate.setMonth(newDate.getMonth() + i);
+            var option = document.createElement("option");
+            option.value = formatDate(newDate);
+            option.text = formatDate(newDate);
+            check_out_date.add(option);
+        }
+    }
+
+    // Function to format date
+    function formatDate(date) {
+        var d = new Date(date),
+            year = d.getFullYear(),
+            month = ('0' + (d.getMonth() + 1)).slice(-2),
+            day = ('0' + d.getDate()).slice(-2);
+
+        return [year, month, day].join('-');
+    }
+
     // Function to confirm booking and show success message
     function confirmBooking() {
         var confirm_msg = "Please confirm your booking details:\n\n";
@@ -116,9 +169,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 
         if (confirm(confirm_msg)) {
             document.getElementById('success_msg').style.display = 'block'; // Show success message
+            document.getElementById('submitBtn').disabled = true; // Disable submit button
             setTimeout(function() {
                 document.getElementById('success_msg').style.display = 'none';
                 document.getElementById('bookingForm').reset(); // Reset form after submission
+                document.getElementById('submitBtn').disabled = false; // Re-enable submit button
             }, 2000); // Hide success message and reset form after 2 seconds
             return true;
         } else {

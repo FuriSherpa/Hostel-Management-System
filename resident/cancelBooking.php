@@ -70,11 +70,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["cancel"])) {
                             echo "<td>" . $row_booking['check_out_date'] . "</td>";
                             echo "<td>" . $row_booking['status'] . "</td>";
                             echo "<td>";
-                            if ($row_booking['status'] != 'Cancelled' && $row_booking['status'] != 'Accepted' && $row_booking['status'] != 'Rejected') {
+                            if ($row_booking['status'] != 'Cancelled') {
                                 echo "<form method='post' style='display:inline;'>";
                                 echo "<input type='hidden' name='booking_id' value='" . $row_booking['id'] . "'>";
                                 echo "<button type='submit' class='btn btn-danger btn-sm' name='cancel'>Cancel</button>";
                                 echo "</form>";
+                            } else {
+                                echo "Cancelled";
                             }
                             echo "</td>";
                             echo "</tr>";

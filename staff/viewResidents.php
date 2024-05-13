@@ -1,13 +1,18 @@
 <?php
+// Start session if not already started
 if (!isset($_SESSION)) {
     session_start();
 }
 
-include("include/header.php");
+include('include/header.php');
+
+// Include database connection
 include("../mainInclude/dbConn.php");
 
-if (!isset($_SESSION['is_admin_login'])) {
-    echo "<script> location.href='../index.php'; </script>";
+if (isset($_SESSION["is_staff_login"])) {
+    $sEmail = $_SESSION['sEmail'];
+} else {
+    echo  "<script> location.href='../index.php'; </script>";
 }
 
 // Fetch data from the database
@@ -44,7 +49,6 @@ $serialNumber = 1;
                             <th>Check-In Date</th>
                             <th>Check-Out Date</th>
                             <th>Status</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,21 +65,6 @@ $serialNumber = 1;
                             echo "<td>" . $row['CheckInDate'] . "</td>";
                             echo "<td>" . $row['CheckOutDate'] . "</td>";
                             echo "<td>" . $row['status'] . "</td>";
-                            echo "<td>";
-                            echo "
-                                <form action='editResident.php' method='POST' class='d-inline'>
-                                    <input type='hidden' name='id' value='{$row['r_id']}'>
-                                    <button type='submit' class='btn btn-info mr-3' name='view' value='view'>
-                                        <i class='fas fa-pen'></i>
-                                    </button>
-                                </form>
-                                <form action='' method='POST' class='d-inline'>
-                                    <input type='hidden' name='id' value='{$row['r_id']}'>
-                                    <button type='submit' class='btn btn-secondary' name='delete' value='delete'>
-                                        <i class='fas fa-trash'></i>
-                                    </button>
-                                </form>";
-                            echo "</td>";
                             echo "</tr>";
                             $serialNumber++; // Increment the serial number for the next row
                         }
@@ -89,17 +78,5 @@ $serialNumber = 1;
 <!-- /.container-fluid -->
 
 <?php
-if (isset($_POST['delete'])) {
-    $id = $_POST['id'];
-    $sql = "DELETE FROM resident WHERE r_id = $id";
-    if ($conn->query($sql) === TRUE) {
-        echo '<meta http-equiv="refresh" content="0;URL=?deleted"  />';
-    } else {
-        echo "Error deleting record: ";
-    }
-}
-?>
-
-<?php
-include("include/footer.php")
+include("include/footer.php");
 ?>
