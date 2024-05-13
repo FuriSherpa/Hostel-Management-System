@@ -163,7 +163,6 @@ if (!isset($_SESSION['is_admin_login'])) {
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $row["title"]; ?></h5>
                             <p class="card-text"><?php echo $row["content"]; ?></p>
-                            <p class="card-text"><strong>Type:</strong> <?php echo $row["type"]; ?></p>
                             <p class="card-text"><strong>Target Audience:</strong> <?php echo $row["target_audience"]; ?></p>
 
                             <?php
