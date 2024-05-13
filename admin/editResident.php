@@ -18,16 +18,26 @@ if (isset($_POST['id'])) {
         $contact = $_POST['phone'];
         $email = $_POST['email'];
         $address = $_POST['address'];
-        // Similarly, get other form fields
+        $roomNumber = $_POST['roomNumber'];
+        $checkInDate = $_POST['checkInDate'];
+        $checkOutDate = $_POST['checkOutDate'];
+        $password = $_POST['password'];
+        $status = $_POST['status'];
+
+        // Get roomID based on roomNumber
+        $sqlRoom = "SELECT roomID FROM rooms WHERE roomNumber = '$roomNumber'";
+        $resultRoom = $conn->query($sqlRoom);
+        $rowRoom = $resultRoom->fetch_assoc();
+        $roomID = $rowRoom['roomID'];
 
         // Update resident details in the database
-        $sql = "UPDATE resident SET r_name='$name', r_phn='$contact', r_email='$email', r_address='$address' WHERE r_id=$resident_id";
-        // Similarly, update other fields
+        $sql = "UPDATE resident SET r_name='$name', r_phn='$contact', r_email='$email', r_address='$address', roomID='$roomID', CheckInDate='$checkInDate', CheckOutDate='$checkOutDate', r_pass='$password', status='$status' WHERE r_id=$resident_id";
 
         if ($conn->query($sql) === TRUE) {
-            echo "<script>alert('Resident details updated successfully');</script>";
+            echo "<div id='successMsg' class='alert alert-success' role='alert'>Resident details updated successfully</div>";
+            echo "<script>setTimeout(function(){ document.getElementById('successMsg').style.display = 'none'; }, 2000);</script>";
         } else {
-            echo "Error updating record: " . $conn->error;
+            echo "<div class='alert alert-danger' role='alert'>Error updating record: " . $conn->error . "</div>";
         }
     }
 
@@ -37,7 +47,9 @@ if (isset($_POST['id'])) {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        // Display form with resident details for editing
+        // Fetch all available rooms
+        $sqlRoomList = "SELECT roomNumber FROM rooms";
+        $resultRoomList = $conn->query($sqlRoomList);
 ?>
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -63,6 +75,36 @@ if (isset($_POST['id'])) {
                             <label for="address">Address</label>
                             <input type="text" name="address" id="address" value="<?php echo $row['r_address']; ?>" class="form-control">
                         </div>
+                        <div class="form-group">
+                            <label for="roomNumber">Room Number</label>
+                            <select name="roomNumber" id="roomNumber" class="form-control">
+                                <?php
+                                while ($rowRoomList = $resultRoomList->fetch_assoc()) {
+                                    $selected = ($rowRoomList['roomNumber'] == $row['roomID']) ? 'selected' : '';
+                                    echo "<option value='{$rowRoomList['roomNumber']}' $selected>{$rowRoomList['roomNumber']}</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkInDate">Check-In Date</label>
+                            <input type="date" name="checkInDate" id="checkInDate" value="<?php echo $row['CheckInDate']; ?>" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkOutDate">Check-Out Date</label>
+                            <input type="date" name="checkOutDate" id="checkOutDate" value="<?php echo $row['CheckOutDate']; ?>" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" placeholder="Enter New Password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select name="status" id="status" class="form-control">
+                                <option value="Pending" <?php echo ($row['status'] == 'Pending') ? 'selected' : ''; ?>>Pending</option>
+                                <option value="Paid" <?php echo ($row['status'] == 'Paid') ? 'selected' : ''; ?>>Paid</option>
+                            </select>
+                        </div>
                         <!-- Add other fields as needed -->
 
                         <button type="submit" name="update" class="btn btn-primary">Update</button>
@@ -74,10 +116,10 @@ if (isset($_POST['id'])) {
         <!-- /.container-fluid -->
 <?php
     } else {
-        echo "No resident found with that ID.";
+        echo "<div class='alert alert-danger' role='alert'>No resident found with that ID.</div>";
     }
 } else {
-    echo "Resident ID not provided.";
+    echo "<div class='alert alert-danger' role='alert'>Resident ID not provided.</div>";
 }
 ?>
 
