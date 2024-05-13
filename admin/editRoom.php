@@ -27,10 +27,19 @@ if (isset($_POST['editRoom'])) {
     $query = "UPDATE rooms SET roomNumber = '$roomNumber', capacity = '$capacity', roomType = '$roomType', roomFees = '$roomFees' WHERE roomID = $id";
 
     if (mysqli_query($conn, $query)) {
-        echo "<script>alert('Room details updated successfully');</script>";
-        echo "<script> location.href='viewRooms.php'; </script>";
+        // Fetch updated room details
+        $query = "SELECT * FROM rooms WHERE roomID = $id";
+        $result = mysqli_query($conn, $query);
+        $row = mysqli_fetch_assoc($result);
+
+        echo "<div id='successMsg' class='alert alert-success' role='alert'>Room details updated successfully</div>";
+        echo "<script>
+                setTimeout(function(){ 
+                    document.getElementById('successMsg').style.display = 'none';
+                }, 2000);
+            </script>";
     } else {
-        echo "Error updating record: " . mysqli_error($conn);
+        echo "<div class='alert alert-danger' role='alert'>Error updating record: " . mysqli_error($conn) . "</div>";
     }
 }
 ?>
@@ -43,7 +52,7 @@ if (isset($_POST['editRoom'])) {
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <div class="card-body">
+        <div class="card-body" id="editRoomForm">
             <form action="" method="POST">
                 <input type="hidden" name="id" value="<?php echo $row['roomID']; ?>">
                 <div class="form-group">
