@@ -16,7 +16,7 @@ include("mainInclude/header.php");
                     <div class="card-body p-5">
                         <div class="small text-uppercase fw-bold text-muted">Two-Seater Room</div>
                         <div class="mb-3">
-                            <span class="display-4 fw-bold">Rs 4000</span> <br>
+                            <span class="display-4 fw-bold">Rs 14000</span> <br>
                             <span class="text-muted">/ bed / month</span>
                         </div>
                         <ul class="list-unstyled mb-4">
@@ -46,7 +46,7 @@ include("mainInclude/header.php");
                     <div class="card-body p-5">
                         <div class="small text-uppercase fw-bold text-muted">Three-Seater Room</div>
                         <div class="mb-3">
-                            <span class="display-4 fw-bold">Rs 3000</span> <br>
+                            <span class="display-4 fw-bold">Rs 12000</span> <br>
                             <span class="text-muted">/ bed / month</span>
                         </div>
                         <ul class="list-unstyled mb-4">
@@ -76,7 +76,7 @@ include("mainInclude/header.php");
                     <div class="card-body p-5">
                         <div class="small text-uppercase fw-bold text-muted">Four-Seater Room</div>
                         <div class="mb-3">
-                            <span class="display-4 fw-bold">Rs 2500</span> <br>
+                            <span class="display-4 fw-bold">Rs 10000</span> <br>
                             <span class="text-muted">/ bed / month</span>
                         </div>
                         <ul class="list-unstyled mb-4">
