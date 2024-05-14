@@ -43,7 +43,7 @@ $serialNumber = 1;
                             <th>Room Number</th>
                             <th>Check-In Date</th>
                             <th>Check-Out Date</th>
-                            <th>Status</th>
+                            <th>Payment Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -60,7 +60,7 @@ $serialNumber = 1;
                             echo "<td>" . $row['roomNumber'] . "</td>"; // Output the room number
                             echo "<td>" . $row['CheckInDate'] . "</td>";
                             echo "<td>" . $row['CheckOutDate'] . "</td>";
-                            echo "<td>" . $row['status'] . "</td>";
+                            echo "<td>" . $row['paymentStatus'] . "</td>"; // Output the payment status
                             echo "<td>";
                             echo "
                                 <form action='editResident.php' method='POST' class='d-inline'>
@@ -68,13 +68,16 @@ $serialNumber = 1;
                                     <button type='submit' class='btn btn-info mr-3' name='view' value='view'>
                                         <i class='fas fa-pen'></i>
                                     </button>
-                                </form>
+                                </form>";
+                            if ($row['paymentStatus'] == 'Pending') {
+                                echo "
                                 <form action='' method='POST' class='d-inline'>
                                     <input type='hidden' name='id' value='{$row['r_id']}'>
                                     <button type='submit' class='btn btn-secondary' name='delete' value='delete'>
                                         <i class='fas fa-trash'></i>
                                     </button>
                                 </form>";
+                            }
                             echo "</td>";
                             echo "</tr>";
                             $serialNumber++; // Increment the serial number for the next row
@@ -91,12 +94,25 @@ $serialNumber = 1;
 <?php
 if (isset($_POST['delete'])) {
     $id = $_POST['id'];
-    $sql = "DELETE FROM resident WHERE r_id = $id";
-    if ($conn->query($sql) === TRUE) {
-        echo '<meta http-equiv="refresh" content="0;URL=?deleted"  />';
-    } else {
-        echo "Error deleting record: ";
-    }
+    // Get roomID before updating resident table
+    $get_room_id_query = "SELECT roomID FROM resident WHERE r_id = $id";
+    $room_id_result = mysqli_query($conn, $get_room_id_query);
+    $room_id_row = mysqli_fetch_assoc($room_id_result);
+    $room_id = $room_id_row['roomID'];
+
+    // Update payment status to Empty and clear CheckInDate, CheckOutDate, roomID
+    $update_resident_query = "UPDATE resident SET CheckInDate = '', CheckOutDate = '', roomID = '', paymentStatus = '' WHERE r_id = $id";
+    mysqli_query($conn, $update_resident_query);
+
+    // Decrease currentOccupancy by 1
+    $update_room_occupancy_query = "UPDATE rooms SET currentOccupancy = currentOccupancy - 1 WHERE roomID = $room_id";
+    mysqli_query($conn, $update_room_occupancy_query);
+
+    // Change booking_requests status to Pending
+    $update_booking_request_query = "UPDATE booking_requests SET status = 'Pending' WHERE resident_id = $id";
+    mysqli_query($conn, $update_booking_request_query);
+
+    echo '<meta http-equiv="refresh" content="0;URL=?deleted"  />';
 }
 ?>
 
