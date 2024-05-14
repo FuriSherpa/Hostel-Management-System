@@ -87,7 +87,7 @@ if (isset($rLogEmail)) {
             <li class="nav-item <?php echo (basename($_SERVER['PHP_SELF']) == 'viewRooms.php') ? 'active' : ''; ?>">
                 <a class="nav-link" href="viewRooms.php">
                     <i class="bi bi-eye-fill"></i>
-                    <span>View Room Details</span></a>
+                    <span>View Room</span></a>
             </li>
 
             <!-- Nav Item - Rooms -->
