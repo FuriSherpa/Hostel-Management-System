@@ -21,7 +21,7 @@ if (isset($_POST['id'])) {
         $roomNumber = $_POST['roomNumber'];
         $checkInDate = $_POST['checkInDate'];
         $checkOutDate = $_POST['checkOutDate'];
-        $password = $_POST['password'];
+        $password = ($_POST['password'] != '') ? $_POST['password'] : '';
         $status = $_POST['status'];
 
         // Get roomID based on roomNumber
@@ -30,8 +30,16 @@ if (isset($_POST['id'])) {
         $rowRoom = $resultRoom->fetch_assoc();
         $roomID = $rowRoom['roomID'];
 
+        // If password is empty, retain old password
+        if (empty($password)) {
+            $sqlPass = "SELECT r_pass FROM resident WHERE r_id = $resident_id";
+            $resultPass = $conn->query($sqlPass);
+            $rowPass = $resultPass->fetch_assoc();
+            $password = $rowPass['r_pass'];
+        }
+
         // Update resident details in the database
-        $sql = "UPDATE resident SET r_name='$name', r_phn='$contact', r_email='$email', r_address='$address', roomID='$roomID', CheckInDate='$checkInDate', CheckOutDate='$checkOutDate', r_pass='$password', status='$status' WHERE r_id=$resident_id";
+        $sql = "UPDATE resident SET r_name='$name', r_phn='$contact', r_email='$email', r_address='$address', roomID='$roomID', CheckInDate='$checkInDate', CheckOutDate='$checkOutDate', r_pass='$password', paymentStatus='$status' WHERE r_id=$resident_id";
 
         if ($conn->query($sql) === TRUE) {
             echo "<div id='successMsg' class='alert alert-success' role='alert'>Resident details updated successfully</div>";
@@ -99,10 +107,10 @@ if (isset($_POST['id'])) {
                             <input type="password" name="password" id="password" placeholder="Enter New Password" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="status">Status</label>
+                            <label for="status">Payment Status</label>
                             <select name="status" id="status" class="form-control">
-                                <option value="Pending" <?php echo ($row['status'] == 'Pending') ? 'selected' : ''; ?>>Pending</option>
-                                <option value="Paid" <?php echo ($row['status'] == 'Paid') ? 'selected' : ''; ?>>Paid</option>
+                                <option value="Pending" <?php echo ($row['paymentStatus'] == 'Pending') ? 'selected' : ''; ?>>Pending</option>
+                                <option value="Paid" <?php echo ($row['paymentStatus'] == 'Paid') ? 'selected' : ''; ?>>Paid</option>
                             </select>
                         </div>
                         <!-- Add other fields as needed -->
