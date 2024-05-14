@@ -16,7 +16,6 @@ if (!isset($_SESSION['is_admin_login'])) {
     <!-- Page Heading with dynamic greeting -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
     </div>
 
     <!-- Content Row -->
@@ -118,7 +117,15 @@ if (!isset($_SESSION['is_admin_login'])) {
         </div>
         <!-- Rooms card ends -->
 
-        <!-- Pending Requests Card Example -->
+        <!-- Booking Requests Card -->
+        <?php
+        // Fetch count of pending booking requests from the database
+        $query = "SELECT COUNT(*) AS total_pending_requests FROM booking_requests WHERE status = 'Pending'";
+        $result = mysqli_query($conn, $query);
+        $row = mysqli_fetch_assoc($result);
+        $total_pending_requests = $row['total_pending_requests'];
+        ?>
+
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
@@ -126,7 +133,7 @@ if (!isset($_SESSION['is_admin_login'])) {
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Booking Requests</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">3 work on this later</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_pending_requests; ?></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -134,7 +141,9 @@ if (!isset($_SESSION['is_admin_login'])) {
                     </div>
                 </div>
             </div>
+            <!-- Booking Card Ends -->
         </div>
+
     </div>
     <!-- Content Row -->
 
