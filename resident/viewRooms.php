@@ -25,10 +25,8 @@ $serialNumber = 1;
 // Function to get the occupancy status of a room
 function getOccupancyStatus($currentOccupancy, $capacity)
 {
-    if ($currentOccupancy == 0) {
+    if ($currentOccupancy < $capacity) {
         return "Available";
-    } elseif ($currentOccupancy < $capacity) {
-        return "Partially Occupied";
     } else {
         return "Occupied";
     }
@@ -38,7 +36,7 @@ function getOccupancyStatus($currentOccupancy, $capacity)
 $filter = "";
 if (isset($_GET['filter']) && $_GET['filter'] == "roomStatus" && isset($_GET['value'])) {
     $value = $_GET['value'];
-    if ($value == "Available" || $value == "Partially Occupied" || $value == "Occupied") {
+    if ($value == "Available" || $value == "Occupied") {
         $filter = "AND roomStatus = '$value'";
     }
 }
@@ -50,6 +48,25 @@ if (isset($_GET['sort'])) {
 
 $query = "SELECT * FROM rooms WHERE 1 $filter ORDER BY $sort";
 $result = mysqli_query($conn, $query);
+
+// Check if the current resident has a room assigned
+$hasRoom = false;
+$roomDetails = [];
+$getResidentRoomQuery = "SELECT * FROM resident WHERE r_email = '$rLogEmail' AND roomID > 0";
+$residentRoomResult = mysqli_query($conn, $getResidentRoomQuery);
+if (mysqli_num_rows($residentRoomResult) > 0) {
+    $hasRoom = true;
+    $row = mysqli_fetch_assoc($residentRoomResult);
+    $roomId = $row['roomID'];
+    $checkInDate = $row['CheckInDate'];
+    $checkOutDate = $row['CheckOutDate'];
+    $paymentStatus = $row['paymentStatus'];
+
+    // Get room details
+    $getRoomDetailQuery = "SELECT * FROM rooms WHERE roomID = $roomId";
+    $roomDetailResult = mysqli_query($conn, $getRoomDetailQuery);
+    $roomDetails = mysqli_fetch_assoc($roomDetailResult);
+}
 ?>
 
 <!-- Begin Page Content -->
@@ -57,6 +74,37 @@ $result = mysqli_query($conn, $query);
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">View Rooms</h1>
+
+    <?php if ($hasRoom) : ?>
+        <!-- Room Detail -->
+        <div class="card shadow mb-4 mt-4">
+            <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-primary">My Room Detail</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Room Number</th>
+                                <th>Check-In Date</th>
+                                <th>Check-Out Date</th>
+                                <th>Payment Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><?php echo $roomDetails['roomNumber']; ?></td>
+                                <td><?php echo $checkInDate; ?></td>
+                                <td><?php echo $checkOutDate; ?></td>
+                                <td><?php echo $paymentStatus; ?></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
 
     <!-- Filter and sort options -->
     <div class="mb-3">
@@ -68,7 +116,6 @@ $result = mysqli_query($conn, $query);
             <select class="form-control mx-2" id="value" name="value">
                 <option value="" <?php echo ($_GET['value'] ?? '') == '' ? 'selected' : ''; ?>>Select Value</option>
                 <option value="Available" <?php echo ($_GET['value'] ?? '') == 'Available' ? 'selected' : ''; ?>>Available</option>
-                <option value="Partially Occupied" <?php echo ($_GET['value'] ?? '') == 'Partially Occupied' ? 'selected' : ''; ?>>Partially Occupied</option>
                 <option value="Occupied" <?php echo ($_GET['value'] ?? '') == 'Occupied' ? 'selected' : ''; ?>>Occupied</option>
             </select>
             <button type="submit" class="btn btn-primary">Apply Filter</button>
@@ -106,6 +153,7 @@ $result = mysqli_query($conn, $query);
                     <tbody>
                         <?php
                         // Loop through each row of data and populate the table rows dynamically
+                        $result = mysqli_query($conn, $query);
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<tr>";
                             echo "<td>" . $serialNumber . "</td>"; // Output the serial number
