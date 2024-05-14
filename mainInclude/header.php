@@ -64,11 +64,11 @@
                         <form id="aloginform">
                             <div class="form-group">
                                 <i class="bi bi-envelope-fill"></i><label for="a_email" class="p-2" style="font-weight: 500;" ;>Email address</label>
-                                <input type="email" class="form-control" id="a_email" placeholder="Enter email">
+                                <input type="email" class="form-control" id="a_email" placeholder="Enter email" oninput="clearAdminError()">
                             </div>
                             <div class="form-group">
                                 <i class="bi bi-key-fill"></i><label for="a_pass" class="p-2" style="font-weight: 500;">Password</label>
-                                <input type="password" class="form-control" id="a_pass" placeholder="Password">
+                                <input type="password" class="form-control" id="a_pass" placeholder="Password" oninput="clearAdminError()">
                             </div>
                         </form>
 
@@ -95,11 +95,11 @@
                         <form id="sloginform">
                             <div class="form-group">
                                 <i class="bi bi-envelope-fill"></i><label for="s_email" class="p-2" style="font-weight: 500;" ;>Email address</label>
-                                <input type="email" class="form-control" id="s_email" placeholder="Enter email">
+                                <input type="email" class="form-control" id="s_email" placeholder="Enter email" oninput="clearStaffError()">
                             </div>
                             <div class="form-group">
                                 <i class="bi bi-key-fill"></i><label for="s_pass" class="p-2" style="font-weight: 500;">Password</label>
-                                <input type="password" class="form-control" id="s_pass" placeholder="Password">
+                                <input type="password" class="form-control" id="s_pass" placeholder="Password" oninput="clearStaffError()">
                             </div>
                         </form>
 
@@ -126,11 +126,11 @@
                         <form id="rloginform">
                             <div class="form-group">
                                 <i class="bi bi-envelope-fill"></i><label for="r_logemail" class="p-2" style="font-weight: 500;" ;>Email address</label>
-                                <input type="email" class="form-control" id="r_logemail" placeholder="Enter email">
+                                <input type="email" class="form-control" id="r_logemail" placeholder="Enter email" oninput="clearResidentError()">
                             </div>
                             <div class="form-group">
                                 <i class="bi bi-key-fill"></i><label for="r_logpass" class="p-2" style="font-weight: 500;">Password</label>
-                                <input type="password" class="form-control" id="r_logpass" placeholder="Password">
+                                <input type="password" class="form-control" id="r_logpass" placeholder="Password" oninput="clearResidentError()">
                             </div>
                         </form>
 
@@ -148,7 +148,7 @@
         <script>
             function clearAdminLoginForm() {
                 document.getElementById("aloginform").reset();
-                $("statusALogMsg").html(" ");
+                $("#statusALogMsg").html(" ");
             }
 
             function clearStaffLoginForm() {
@@ -160,6 +160,42 @@
                 document.getElementById("rloginform").reset();
                 $("#statusRLogMsg").html(" ");
             }
+
+            function clearAdminError() {
+                $("#statusALogMsg").html(" ");
+            }
+
+            function clearStaffError() {
+                $("#statusSLogMsg").html(" ");
+            }
+
+            function clearResidentError() {
+                $("#statusRLogMsg").html(" ");
+            }
+
+            // Admin Login on Enter
+            document.getElementById("a_pass").addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    checkAdminLogin();
+                }
+            });
+
+            // Staff Login on Enter
+            document.getElementById("s_pass").addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    checkStaffLogin();
+                }
+            });
+
+            // Resident Login on Enter
+            document.getElementById("r_logpass").addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    checkResidentLogin();
+                }
+            });
         </script>
     </main>
 </body>
