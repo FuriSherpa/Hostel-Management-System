@@ -115,13 +115,16 @@ $result = mysqli_query($conn, $query);
                                     <button type='submit' class='btn btn-info mr-3' name='view' value='view'>
                                         <i class='fas fa-pen'></i>
                                     </button>
-                                </form>
-                                <form action='' method='POST' class='d-inline'>
-                                    <input type='hidden' name='id' value='{$row['roomID']}'>
-                                    <button type='submit' class='btn btn-secondary' name='delete' value='delete'>
-                                        <i class='fas fa-trash'></i>
-                                    </button>
                                 </form>";
+                            if ($row['currentOccupancy'] == 0) {
+                                echo "
+                                    <form action='' method='POST' class='d-inline'>
+                                        <input type='hidden' name='id' value='{$row['roomID']}'>
+                                        <button type='submit' class='btn btn-secondary' name='delete' value='delete'>
+                                            <i class='fas fa-trash'></i>
+                                        </button>
+                                    </form>";
+                            }
                             echo "</td>";
                             echo "</tr>";
                             $serialNumber++; // Increment the serial number for the next row
@@ -148,7 +151,7 @@ $result = mysqli_query($conn, $query);
 <?php
 if (isset($_POST['delete'])) {
     $id = $_POST['id'];
-    $sql = "DELETE FROM rooms WHERE roomID = $id"; // corrected variable name
+    $sql = "DELETE FROM rooms WHERE roomID = $id AND currentOccupancy = 0"; // modified SQL query
     if ($conn->query($sql) === TRUE) {
         echo '<meta http-equiv="refresh" content="0;URL=?deleted"  />';
     } else {
