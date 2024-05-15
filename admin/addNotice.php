@@ -29,14 +29,14 @@ if (!isset($_SESSION['is_admin_login'])) {
                     <label for="content">Content:</label>
                     <textarea id="content" name="content" class="form-control" rows="5"></textarea>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="type">Type:</label>
                     <select id="type" name="type" class="form-control">
                         <option value="General">General</option>
                         <option value="Event">Event</option>
                         <option value="Maintenance">Maintenance</option>
                     </select>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label for="target_audience">Target Audience:</label>
                     <select id="target_audience" name="target_audience" class="form-control">
