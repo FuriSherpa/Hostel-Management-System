@@ -14,8 +14,11 @@ if (isset($_GET['id'])) {
     $announcement_id = $_GET['id'];
 
     // Fetch announcement details from database
-    $sql = "SELECT * FROM announcements WHERE id = $announcement_id";
-    $result = $conn->query($sql);
+    $sql = "SELECT * FROM announcements WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $announcement_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $announcement = $result->fetch_assoc();
@@ -23,6 +26,7 @@ if (isset($_GET['id'])) {
         echo "<script>alert('Announcement not found');</script>";
         echo "<script> location.href='viewNotice.php'; </script>";
     }
+    $stmt->close();
 } else {
     echo "<script>alert('Announcement ID not provided');</script>";
     echo "<script> location.href='viewNotice.php'; </script>";
@@ -31,19 +35,21 @@ if (isset($_GET['id'])) {
 // Update Announcement
 if (isset($_POST['update_announcement'])) {
     $title = $_POST['title'];
-    $content = mysqli_real_escape_string($conn, $_POST['content']); // Escape single quotes
-    $type = $_POST['type'];
+    $content = $_POST['content'];
     $target_audience = $_POST['target_audience'];
     $category_ids = implode(",", $_POST['category_ids']);
 
-    $update_sql = "UPDATE announcements SET title='$title', content='$content', type='$type', target_audience='$target_audience', category_ids='$category_ids' WHERE id=$announcement_id";
+    $update_sql = "UPDATE announcements SET title=?, content=?, target_audience=?, category_ids=? WHERE id=?";
+    $stmt = $conn->prepare($update_sql);
+    $stmt->bind_param("ssssi", $title, $content, $target_audience, $category_ids, $announcement_id);
 
-    if ($conn->query($update_sql) === TRUE) {
+    if ($stmt->execute()) {
         echo "<script>alert('Announcement updated successfully');</script>";
         echo "<script> location.href='viewNotice.php'; </script>";
     } else {
-        echo "Error updating record: " . $conn->error;
+        echo "Error updating record: " . $stmt->error;
     }
+    $stmt->close();
 }
 
 ?>
@@ -66,10 +72,6 @@ if (isset($_POST['update_announcement'])) {
                         <div class="form-group">
                             <label for="content">Content</label>
                             <textarea class="form-control" id="content" name="content" rows="3" required><?php echo $announcement['content']; ?></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="type">Type</label>
-                            <input type="text" class="form-control" id="type" name="type" value="<?php echo $announcement['type']; ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="target_audience">Target Audience</label>
