@@ -59,9 +59,9 @@ if (isset($_SESSION["is_login"])) {
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th>Date</th>
                                     <th>Title</th>
                                     <th>Content</th>
-                                    <th>Target Audience</th>
                                     <th>Categories</th>
                                 </tr>
                             </thead>
@@ -99,9 +99,9 @@ if (isset($_SESSION["is_login"])) {
                                         if ($row["target_audience"] == 'All' || $row["target_audience"] == 'Residents') {
                                 ?>
                                             <tr>
+                                                <td><?php echo date("F j, Y, g:i a", strtotime($row["created_at"])); ?></td>
                                                 <td><?php echo $row["title"]; ?></td>
                                                 <td><?php echo $row["content"]; ?></td>
-                                                <td><?php echo $row["target_audience"]; ?></td>
                                                 <td><?php echo implode(", ", $categories); ?></td>
                                             </tr>
                                     <?php
