@@ -112,16 +112,6 @@ $result = mysqli_query($conn, $query);
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Request ID</th>
-                            <th>Student Name</th>
-                            <th>Requested Room</th>
-                            <th>Check-in Date</th>
-                            <th>Check-out Date</th>
-                            <th>Action</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         <?php
                         while ($row = mysqli_fetch_assoc($result)) {
