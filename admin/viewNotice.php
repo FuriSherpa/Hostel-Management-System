@@ -66,9 +66,9 @@ if (isset($_GET['delete_id'])) {
                                 <tr>
                                     <th>Title</th>
                                     <th>Content</th>
-                                    <th>Type</th>
                                     <th>Target Audience</th>
                                     <th>Categories</th>
+                                    <th>Created At</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -107,9 +107,9 @@ if (isset($_GET['delete_id'])) {
                                         <tr>
                                             <td><?php echo $row["title"]; ?></td>
                                             <td><?php echo $row["content"]; ?></td>
-                                            <td><?php echo $row["type"]; ?></td>
                                             <td><?php echo $row["target_audience"]; ?></td>
                                             <td><?php echo implode(", ", $categories); ?></td>
+                                            <td><?php echo $row["created_at"]; ?></td>
                                             <td>
                                                 <a href="editAnnouncement.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary">Edit</a>
                                                 <a href="?delete_id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this announcement?')">Delete</a>
