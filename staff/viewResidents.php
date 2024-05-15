@@ -48,7 +48,7 @@ $serialNumber = 1;
                             <th>Room Number</th>
                             <th>Check-In Date</th>
                             <th>Check-Out Date</th>
-                            <th>Status</th>
+                            <th>Payment Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,7 +64,7 @@ $serialNumber = 1;
                             echo "<td>" . $row['roomNumber'] . "</td>"; // Output the room number
                             echo "<td>" . $row['CheckInDate'] . "</td>";
                             echo "<td>" . $row['CheckOutDate'] . "</td>";
-                            echo "<td>" . $row['status'] . "</td>";
+                            echo "<td>" . $row['paymentStatus'] . "</td>";
                             echo "</tr>";
                             $serialNumber++; // Increment the serial number for the next row
                         }
