@@ -23,12 +23,12 @@ if (isset($_GET['id'])) {
     if ($result->num_rows > 0) {
         $announcement = $result->fetch_assoc();
     } else {
-        echo "<script>alert('Announcement not found');</script>";
+        echo "<script>displayMessage('Announcement not found', 'error');</script>";
         echo "<script> location.href='viewNotice.php'; </script>";
     }
     $stmt->close();
 } else {
-    echo "<script>alert('Announcement ID not provided');</script>";
+    echo "<script>displayMessage('Announcement ID not provided', 'error');</script>";
     echo "<script> location.href='viewNotice.php'; </script>";
 }
 
@@ -44,15 +44,28 @@ if (isset($_POST['update_announcement'])) {
     $stmt->bind_param("ssssi", $title, $content, $target_audience, $category_ids, $announcement_id);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Announcement updated successfully');</script>";
+        echo "<script>displayMessage('Announcement updated successfully', 'success');</script>";
         echo "<script> location.href='viewNotice.php'; </script>";
     } else {
-        echo "Error updating record: " . $stmt->error;
+        echo "<script>displayMessage('Error updating record: " . $stmt->error . "', 'error');</script>";
     }
     $stmt->close();
 }
 
 ?>
+
+<!-- JavaScript for displaying messages -->
+<script>
+    function displayMessage(message, type) {
+        var msgDiv = document.createElement('div');
+        msgDiv.className = 'alert alert-' + type;
+        msgDiv.innerHTML = message;
+        document.body.appendChild(msgDiv);
+        setTimeout(function() {
+            msgDiv.style.display = 'none';
+        }, 2000);
+    }
+</script>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">

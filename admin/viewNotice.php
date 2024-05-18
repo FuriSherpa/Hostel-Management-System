@@ -15,7 +15,6 @@ if (isset($_GET['delete_id'])) {
     $delete_id = $_GET['delete_id'];
     $delete_sql = "DELETE FROM announcements WHERE id=$delete_id";
     if ($conn->query($delete_sql) === TRUE) {
-        echo "<script>alert('Announcement deleted successfully');</script>";
     } else {
         echo "Error deleting record: " . $conn->error;
     }
@@ -112,8 +111,33 @@ if (isset($_GET['delete_id'])) {
                                             <td><?php echo $row["created_at"]; ?></td>
                                             <td>
                                                 <a href="editAnnouncement.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary">Edit</a>
-                                                <a href="?delete_id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this announcement?')">Delete</a>
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteConfirmationModal<?php echo $row['id']; ?>">
+                                                    Delete
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="deleteConfirmationModal<?php echo $row['id']; ?>" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure you want to delete this announcement?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                                <a href="?delete_id=<?php echo $row['id']; ?>" class="btn btn-danger">Yes</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
+
                                         </tr>
                                     <?php
                                     }

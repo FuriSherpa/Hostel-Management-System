@@ -1,7 +1,5 @@
 <?php
-if (!isset($_SESSION)) {
-    session_start();
-}
+session_start();
 
 include("include/header.php");
 include("../mainInclude/dbConn.php");
@@ -9,6 +7,9 @@ include("../mainInclude/dbConn.php");
 if (!isset($_SESSION['is_admin_login'])) {
     echo "<script> location.href='../index.php'; </script>";
 }
+
+// Check if success parameter exists in the URL
+$success = isset($_GET['success']) ? $_GET['success'] : false;
 ?>
 
 <!-- Begin Page Content -->
@@ -16,6 +17,13 @@ if (!isset($_SESSION['is_admin_login'])) {
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Add Notice</h1>
+
+    <!-- Display success message if it exists -->
+    <?php if ($success) : ?>
+        <div id="successMessage" class="alert alert-success" role="alert">
+            Announcement added successfully!
+        </div>
+    <?php endif; ?>
 
     <!-- Announcement form starts -->
     <div class="card">
@@ -29,14 +37,6 @@ if (!isset($_SESSION['is_admin_login'])) {
                     <label for="content">Content:</label>
                     <textarea id="content" name="content" class="form-control" rows="5"></textarea>
                 </div>
-                <!-- <div class="form-group">
-                    <label for="type">Type:</label>
-                    <select id="type" name="type" class="form-control">
-                        <option value="General">General</option>
-                        <option value="Event">Event</option>
-                        <option value="Maintenance">Maintenance</option>
-                    </select>
-                </div> -->
                 <div class="form-group">
                     <label for="target_audience">Target Audience:</label>
                     <select id="target_audience" name="target_audience" class="form-control">
@@ -73,3 +73,9 @@ if (!isset($_SESSION['is_admin_login'])) {
 <?php
 include("include/footer.php");
 ?>
+<script>
+    // Function to hide success message after 2 seconds
+    setTimeout(function() {
+        document.getElementById('successMessage').style.display = 'none';
+    }, 2000);
+</script>

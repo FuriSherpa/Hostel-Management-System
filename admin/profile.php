@@ -25,17 +25,25 @@ if ($result->num_rows == 1) {
 if (isset($_POST['updateAdminBtn'])) {
     $aName = $_POST['aName'];
     $aEmail = $_POST['aEmail'];
-    
+
     // Validate and handle image upload
-    if(isset($_FILES['aImg']) && $_FILES['aImg']['error'] === UPLOAD_ERR_OK) {
+    if (isset($_FILES['aImg']) && $_FILES['aImg']['error'] === UPLOAD_ERR_OK) {
         $aImg = $_FILES['aImg'];
         $img_folder = "img/";
         $img_name = $img_folder . basename($aImg['name']);
+        $img_name_profile = "img/profile/admin.jpg"; // New location and fixed name for admin image in profile folder
         $img_tmp = $aImg['tmp_name'];
-        if(move_uploaded_file($img_tmp, $img_name)) {
-            // Image uploaded successfully
+        if (move_uploaded_file($img_tmp, $img_name)) {
+            // Image uploaded successfully to the original location
+            // Now copy the image to the new location
+            if (copy($img_name, $img_name_profile)) {
+                // Image copied successfully to the new location
+                $aImg = $img_name_profile; // Update $aImg with the new image path
+            } else {
+                // Failed to copy image to the new location
+            }
         } else {
-            // Failed to upload image
+            // Failed to upload image to the original location
         }
     }
 
@@ -54,7 +62,7 @@ if (isset($_POST['updateAdminBtn'])) {
 
 <div class="container">
     <h1 class="h3 mb-4 text-gray-800">My Profile</h1>
-    
+
     <div class="row">
         <div class="col-md-4 mb-4">
             <div class="profile-image-container">
@@ -94,7 +102,8 @@ if (isset($_POST['updateAdminBtn'])) {
     </div>
 
     <?php echo $passmsg; ?>
-    <?php $passmsg = ''; // Clear passmsg after displaying ?>
+    <?php $passmsg = ''; // Clear passmsg after displaying 
+    ?>
 
 </div>
 

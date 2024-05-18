@@ -10,6 +10,8 @@ if (!isset($_SESSION['is_admin_login'])) {
     echo "<script> location.href='../index.php'; </script>";
 }
 
+$msg = ""; // Initialize empty message variable
+
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Process the form data and insert into the database
@@ -17,24 +19,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $capacity = $_POST['capacity'];
     $roomType = $_POST['roomType'];
     $roomFees = $_POST['roomFees'];
-    $status = $_POST['status'];
+    $status = "Available"; // Set the status to "Available"
 
-    // Perform database insertion
-    $query = "INSERT INTO rooms (roomNumber, capacity, roomType, roomFees, roomStatus) VALUES ('$roomNumber', '$capacity', '$roomType', '$roomFees', '$status')";
-    $result = mysqli_query($conn, $query);
+    // Check if the room number already exists
+    $checkQuery = "SELECT * FROM rooms WHERE roomNumber='$roomNumber'";
+    $checkResult = mysqli_query($conn, $checkQuery);
 
-    // Check if insertion was successful
-    if ($result) {
-        // Display success message
-        echo "<script>alert('Room added successfully!');</script>";
-        // Redirect to the page displaying rooms list
-        echo "<script>window.location.href='addRoom.php';</script>";
+    if (mysqli_num_rows($checkResult) > 0) {
+        $msg = "Room number already exists. Please choose a different room number.";
     } else {
-        // Display error message
-        echo "<script>alert('Error adding room. Please try again.');</script>";
+        // Perform database insertion
+        $query = "INSERT INTO rooms (roomNumber, capacity, roomType, roomFees, roomStatus) VALUES ('$roomNumber', '$capacity', '$roomType', '$roomFees', '$status')";
+        $result = mysqli_query($conn, $query);
+
+        // Check if insertion was successful
+        if ($result) {
+            // Set success message
+            $msg = "Room added successfully!";
+        } else {
+            // Set error message
+            $msg = "Error adding room. Please try again.";
+        }
     }
 }
-
 ?>
 
 <!-- Begin Page Content -->
@@ -42,6 +49,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Add Rooms</h1>
+
+    <!-- Display message if exists -->
+    <?php if (!empty($msg)) : ?>
+        <div id="msg" class="alert <?php echo ($result ? 'alert-success' : 'alert-danger'); ?>" role="alert">
+            <?php echo $msg; ?>
+        </div>
+    <?php endif; ?>
 
     <!-- Room Addition Form -->
     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
@@ -65,13 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="roomFees">Fees Per Month:</label>
                     <input type="number" name="roomFees" id="roomFees" class="form-control" required>
                 </div>
-                <div class="form-group">
-                    <label for="status">Status:</label>
-                    <select name="status" id="status" class="form-control" required>
-                        <option value="Available">Available</option>
-                        <option value="Occupied">Occupied</option>
-                    </select>
-                </div>
+                <!-- No status field in the form -->
             </div>
         </div>
         <div class="text-center">
@@ -84,3 +92,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- /.container-fluid -->
 
 <?php include("include/footer.php") ?>
+
+<script>
+    // Add JavaScript to make the message disappear after 2 seconds
+    setTimeout(function() {
+        document.getElementById('msg').style.display = 'none';
+    }, 2000);
+</script>

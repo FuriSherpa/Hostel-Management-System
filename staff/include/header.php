@@ -14,11 +14,15 @@ if (isset($_SESSION["is_staff_login"])) {
 }
 
 if (isset($sEmail)) {
-    $sql = "SELECT staff_img FROM staff WHERE staff_email  = '$sEmail'";
+    $sql = "SELECT staff_img, staff_name FROM staff WHERE staff_email  = '$sEmail'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $s_img = $row["staff_img"];
+    
+    // Get the staff name and extract the first word
+    $sName = explode(' ', $row["staff_name"])[0];
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -135,7 +139,7 @@ if (isset($sEmail)) {
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $sEmail; ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Welcome <?php echo $sName; ?></span>
                                 <img class="img-profile rounded-circle" src="<?php echo $s_img; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
